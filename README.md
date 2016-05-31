@@ -1,5 +1,5 @@
 # DS_SortInventory
-Don't starve mod : Sort Inventory by Brody
+Don't starve mod : Sort Inventory by Brody & Whismerhill
 
 Features:
 - Sorts inventory by weapons, equipment, food, etc when you press z.
@@ -25,6 +25,12 @@ v1.1 Features:
 - -- 1 held: 1st item of inventory will not be sorted
 - -- 2 held: 1st 2 items of inventory will not be sorted
 - Settings are not persistent through reloading of game, or changing settings!
+
+v1.3 Features: 
+- Now with configuration options for 
+- -- the default sorting method when loading savegame (shortcuts still work for changing options ingame)
+- -- whether or not the backpack is sorted when loading a savegame
+- -- custom keybinds between A-Z & Fx keys
 
 Bugs:
 - Keybind reset when controls or options are modified.
