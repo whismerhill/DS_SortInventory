@@ -2,11 +2,15 @@
 -- sorts into weapons, tools, equips, foods, and others
 
 -- Set this value to false if you don't want the backpack to be sorted.
-local sort_backpack = true
-
-local sort_method = 1
+local sort_backpack = GetModConfigData("BackpackSortConf") -- true
+local sort_method = GetModConfigData("SortOrderConf")
 local lowest_sort_index = 1
 local open_chest = nil
+local KEY_SORT = GetModConfigData("Key_SortConf")
+local KEY_BACKPACK = GetModConfigData("Key_BackpackConf")
+
+-- Save & Load mechanism
+--AddPlayerPostInit(function(inst) inst:AddComponent("SIsavedata") end)
 
 
 -- Combines 2 stacks of the same item
@@ -538,7 +542,7 @@ toggle_hold = function()
     end
 end
 
-GLOBAL.TheInput:AddKeyUpHandler(GLOBAL.KEY_Z, function()
+GLOBAL.TheInput:AddKeyUpHandler(KEY_SORT, function()
 	local TheInput = GLOBAL.TheInput
 
 	if not GLOBAL.IsPaused() and not TheInput:IsKeyDown(GLOBAL.KEY_CTRL) and not TheInput:IsKeyDown(GLOBAL.KEY_SHIFT) and not TheInput:IsKeyDown(GLOBAL.KEY_ALT) then      
@@ -555,7 +559,7 @@ end)
 
 
 
-GLOBAL.TheInput:AddKeyUpHandler(GLOBAL.KEY_P, function()
+GLOBAL.TheInput:AddKeyUpHandler(KEY_BACKPACK, function()
 	if sort_backpack then 
 		sort_backpack = false
 		print("Only sorting inventory and not the backpack.")
