@@ -10,7 +10,7 @@ Features:
 - Works with RoG.
 - Works with items from other mods, and variable inventory/backpack sizes!
 
-NOTE: If anyone has a logical sorting method that is not implemented and you think it'll be a good addition to the mod, let me know in the comments or email me at brody.inv.s@gmail.com. 
+NOTE: If anyone has a logical sorting method that is not implemented and you think it'll be a good addition to the mod, let me know in the comments
 
 v1.1 Features:
 - Now works with backpacks
