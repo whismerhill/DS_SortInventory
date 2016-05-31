@@ -1,16 +1,13 @@
--- version 1.2 of sort_inventory
+-- version 1.3 of sort_inventory
 -- sorts into weapons, tools, equips, foods, and others
 
--- Set this value to false if you don't want the backpack to be sorted.
+-- Set this value to false if you don't want the backpack to be sorted. (now a config option)
 local sort_backpack = GetModConfigData("BackpackSortConf") -- true
 local sort_method = GetModConfigData("SortOrderConf")
 local lowest_sort_index = 1
 local open_chest = nil
 local KEY_SORT = GetModConfigData("Key_SortConf")
 local KEY_BACKPACK = GetModConfigData("Key_BackpackConf")
-
--- Save & Load mechanism
---AddPlayerPostInit(function(inst) inst:AddComponent("SIsavedata") end)
 
 
 -- Combines 2 stacks of the same item
