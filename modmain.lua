@@ -255,7 +255,7 @@ quick_stack_backpack = function(chest, backpack)
 end
 
 -- New function by whis for avoiding repeating the same stuff over & over
-local final_sort = function(object,reverse,mode)
+local final_sort = function(player,object,reverse,mode)
     if object then
         if reverse then
             reverse_table(object)
@@ -401,33 +401,33 @@ sort_inv = function()
 	local index = MIN
 	-- Method 2: Stick others at end, starting in the pack if present
 	if method == 2 then
-        final_sort(weapons,false,1) --final_sort 1 is giveitem, 2 is placeatend, 3 is nobackpack, 4 is placeatstart
-        final_sort(tools,false,1)
-        final_sort(equips,false,1)
-        final_sort(foods,false,1)
-        final_sort(others,true,2) -- true means reverse table
+        final_sort(player,weapons,false,1) --final_sort 1 is giveitem, 2 is placeatend, 3 is nobackpack, 4 is placeatstart
+        final_sort(player,tools,false,1)
+        final_sort(player,equips,false,1)
+        final_sort(player,foods,false,1)
+        final_sort(player,others,true,2) -- true means reverse table
 	-- Method 1: Dump everything in inventory in an intuitive order
 	elseif method == 1 then
-        final_sort(weapons,false,1)
-        final_sort(tools,false,1)
-        final_sort(equips,false,1)
-        final_sort(foods,false,1)
-        final_sort(others,false,1)
+        final_sort(player,weapons,false,1)
+        final_sort(player,tools,false,1)
+        final_sort(player,equips,false,1)
+        final_sort(player,foods,false,1)
+        final_sort(player,others,false,1)
 	-- Sort method 3: Place all food into backpack if possible. Do food last
 	elseif method == 3 then
-        final_sort(weapons,false,1)
-        final_sort(tools,false,1)
-        final_sort(equips,false,1)
-        final_sort(others,false,1)
-        final_sort(foods,true,2)
+        final_sort(player,weapons,false,1)
+        final_sort(player,tools,false,1)
+        final_sort(player,equips,false,1)
+        final_sort(player,others,false,1)
+        final_sort(player,foods,true,2)
     -- keep weapons and tools just left of equipslots, then from left to right:
         -- others, food
     elseif method == 4 then
-        final_sort(weapons,true,3)
-        final_sort(tools,true,3)
-        final_sort(equips,true,3)
-        final_sort(others,false,4)
-        final_sort(foods,false,4)
+        final_sort(player,weapons,true,3)
+        final_sort(player,tools,true,3)
+        final_sort(player,equips,true,3)
+        final_sort(player,others,false,4)
+        final_sort(player,foods,false,4)
 	end
 end
 
