@@ -1,5 +1,5 @@
--- version 1.3 of sort_inventory
--- sorts into weapons, tools, equips, foods, and others
+-- version 1.31 of sort_inventory
+-- sorts into weapons, lights, tools, books, equips, foods, and others
 
 -- Set this value to false if you don't want the backpack to be sorted. (now a config option)
 local sort_backpack = GetModConfigData("BackpackSortConf") -- true
@@ -296,6 +296,8 @@ sort_inv = function()
 	local temp_inventory = {}
 	local weapons = {}
 	local tools = {}
+    local books = {} --added books & lights categories
+    local lights ={} -- burnable component ?
 	local equips = {}
 	local foods = {}
 	local others = {}
@@ -322,7 +324,16 @@ sort_inv = function()
 		end
 		-- equips
 		if item then
-			if (item["components"]["equippable"]) then -- includes weapons, tools, and other equippable items
+            if (item["components"]["book"]) then  --books have component book but it wasn't working (they are not equippable !)
+                    local new_item_index = #books+1
+                    for n = 1, #books do
+                        o = books[n]
+                        if o["prefab"] == item["prefab"] then
+                            new_item_index = n+1 -- stick the identical item in the next spot
+                        end
+                    end
+                    table.insert(books, new_item_index, item)
+			elseif (item["components"]["equippable"]) then -- includes weapons, tools, and other equippable items
                 if (item["components"]["tool"]) then
 					local new_item_index = #tools+1
                     for n = 1, #tools do
@@ -332,7 +343,16 @@ sort_inv = function()
                         end
                     end
                     table.insert(tools, new_item_index, item)
-				elseif (item["components"]["weapon"]) then
+                elseif (item["Light"] or item.prefab == "torch" or item.prefab == "molehat") then  --lights 
+                    local new_item_index = #lights+1 --item["fire"] doesn't exist until equipped. 
+                    for n = 1, #lights do
+                        o = lights[n]
+                        if o["prefab"] == item["prefab"] then
+                            new_item_index = n+1 -- stick the identical item in the next spot
+                        end
+                    end
+                    table.insert(lights, new_item_index, item)
+				elseif (item["components"]["weapon"]) then 
                     local new_item_index = #weapons+1
                     for n = 1, #weapons do
                         o = weapons[n]
@@ -403,21 +423,27 @@ sort_inv = function()
 	-- Method 2: Stick others at end, starting in the pack if present
 	if method == 2 then
         index = final_sort(player,index,weapons,false,1) --final_sort 1 is giveitem, 2 is placeatend, 3 is nobackpack, 4 is placeatstart
+        index = final_sort(player,index,lights,false,1)
         index = final_sort(player,index,tools,false,1)
+        index = final_sort(player,index,books,false,1)
         index = final_sort(player,index,equips,false,1)
         index = final_sort(player,index,foods,false,1)
         index = final_sort(player,index,others,true,2) -- true means reverse table
 	-- Method 1: Dump everything in inventory in an intuitive order
 	elseif method == 1 then
         index = final_sort(player,index,weapons,false,1)
+        index = final_sort(player,index,lights,false,1)
         index = final_sort(player,index,tools,false,1)
+        index = final_sort(player,index,books,false,1)
         index = final_sort(player,index,equips,false,1)
         index = final_sort(player,index,foods,false,1)
         index = final_sort(player,index,others,false,1)
 	-- Sort method 3: Place all food into backpack if possible. Do food last
 	elseif method == 3 then
         index = final_sort(player,index,weapons,false,1)
+        index = final_sort(player,index,lights,false,1)
         index = final_sort(player,index,tools,false,1)
+        index = final_sort(player,index,books,false,1)
         index = final_sort(player,index,equips,false,1)
         index = final_sort(player,index,others,false,1)
         index = final_sort(player,index,foods,true,2)
@@ -425,7 +451,9 @@ sort_inv = function()
         -- others, food
     elseif method == 4 then
         index = final_sort(player,index,weapons,true,3)
+        index = final_sort(player,index,lights,true,3)
         index = final_sort(player,index,tools,true,3)
+        index = final_sort(player,index,books,true,3)
         index = final_sort(player,index,equips,true,3)
         index = final_sort(player,index,others,false,4)
         index = final_sort(player,index,foods,false,4)
