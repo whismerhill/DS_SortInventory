@@ -1,5 +1,5 @@
--- version 1.3 of sort_inventory
--- sorts into weapons, tools, equips, foods, and others
+-- version 1.31 of sort_inventory
+-- sorts into weapons, lights, tools, books, equips, foods, and others
 
 -- Set this value to false if you don't want the backpack to be sorted. (now a config option)
 local sort_backpack = GetModConfigData("BackpackSortConf") -- true
@@ -324,7 +324,16 @@ sort_inv = function()
 		end
 		-- equips
 		if item then
-			if (item["components"]["equippable"]) then -- includes weapons, tools, and other equippable items
+            if (item["components"]["book"]) then  --books have component book but it wasn't working (they are not equippable !)
+                    local new_item_index = #books+1
+                    for n = 1, #books do
+                        o = books[n]
+                        if o["prefab"] == item["prefab"] then
+                            new_item_index = n+1 -- stick the identical item in the next spot
+                        end
+                    end
+                    table.insert(books, new_item_index, item)
+			elseif (item["components"]["equippable"]) then -- includes weapons, tools, and other equippable items
                 if (item["components"]["tool"]) then
 					local new_item_index = #tools+1
                     for n = 1, #tools do
@@ -334,25 +343,16 @@ sort_inv = function()
                         end
                     end
                     table.insert(tools, new_item_index, item)
-                elseif (item["components"]["book"]) then  --books this should work, have component book
-                    local new_item_index = #books+1
-                    for n = 1, #books do
-                        o = books[n]
-                        if o["prefab"] == item["prefab"] then
-                            new_item_index = n+1 -- stick the identical item in the next spot
-                        end
-                    end
-                    table.insert(weapons, new_item_index, item)
-                elseif (item["Light"] or item["fire"] or item.prefab == "molehat") then  --lights 
-                    local new_item_index = #lights+1
+                elseif (item["Light"] or item.prefab == "torch" or item.prefab == "molehat") then  --lights 
+                    local new_item_index = #lights+1 --item["fire"] doesn't exist until equipped. 
                     for n = 1, #lights do
                         o = lights[n]
                         if o["prefab"] == item["prefab"] then
                             new_item_index = n+1 -- stick the identical item in the next spot
                         end
                     end
-                    table.insert(weapons, new_item_index, item)
-				elseif (item["components"]["weapon"]) then
+                    table.insert(lights, new_item_index, item)
+				elseif (item["components"]["weapon"]) then 
                     local new_item_index = #weapons+1
                     for n = 1, #weapons do
                         o = weapons[n]
