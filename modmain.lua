@@ -31,12 +31,12 @@ local checkduplicate = function()
         if(cache[v]) then
             sort_custom = false
             --error("Duplicate Entries found in Placements for Custom Sorting")
-            print("ERROR Duplicate Entries found in Placements for Custom Sorting")
+            print("ERROR Duplicate Entries found in Groups for Custom Sorting")
             return 1
         end
         cache[v] = true
     end
-    print("noduplicates")
+    print("no duplicates")
     return 5
 end
 
@@ -358,10 +358,10 @@ local sort_inv = function()
 			item = backpack.components.container.slots[i-MAXSLOTS]
 		end
 		if item then
-            print(item.prefab)
-            if recipes[item.prefab] then
-                print(recipes[item.prefab].tab)
-            end
+            -- print(item.prefab)
+            -- if recipes[item.prefab] then
+                -- print(recipes[item.prefab].tab)
+            -- end
             if (item["components"]["book"]) then  --books have component book but it wasn't working (they are not equippable !)
                     local new_item_index = #books+1
                     for n = 1, #books do
