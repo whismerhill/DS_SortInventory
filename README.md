@@ -45,18 +45,18 @@ inside their group except foods
 -------------------------CHANGELOG-------------------------
 -----------------------------------------------------------
 v1.4
--custom sorting, even more configuration options
+- custom sorting, even more configuration options
 v1.3
--configurable keybinds
+- configurable keybinds
 v1.1
--Now works with backpacks
--Works with other mods (RPG HUD, and several others which introduce new items have been tested)!
--Ctrl+z now toggles the sorting method
--Shift+z toggles whether the first 1-2 items are also sorted
+- Now works with backpacks
+- Works with other mods (RPG HUD, and several others which introduce new items have been tested)!
+- Ctrl+z now toggles the sorting method
+- Shift+z toggles whether the first 1-2 items are also sorted
 
 Bugs:
 - Keybind reset when controls or options are modified.
 x Modicon crashed mod page - Fixed. Thanks to KARAS for help!
 
 Future updates:
--Sort chests
+- Sort chests
