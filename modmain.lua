@@ -1,5 +1,6 @@
--- version 1.3 of sort_inventory
+-- version 1.4 of sort_inventory
 -- sorts into weapons, tools, equips, foods, and others
+local RECIPETABS = GLOBAL.RECIPETABS
 
 -- Set this value to false if you don't want the backpack to be sorted. (now a config option)
 local sort_backpack = GetModConfigData("BackpackSortConf") -- true
@@ -9,10 +10,43 @@ local open_chest = nil
 local KEY_SORT = GetModConfigData("Key_SortConf")
 local KEY_BACKPACK = GetModConfigData("Key_BackpackConf")
 
+-- for custom sorting option
+local sort_custom = GetModConfigData("CustomSortConf")
+local places = { GetModConfigData("Placement1Conf"), GetModConfigData("Placement2Conf"), GetModConfigData("Placement3Conf"),
+    GetModConfigData("Placement4Conf"), GetModConfigData("Placement5Conf"), GetModConfigData("Placement6Conf"),
+    GetModConfigData("Placement7Conf") }
+local reverses = { GetModConfigData("Reverse1Conf"), GetModConfigData("Reverse2Conf"), GetModConfigData("Reverse3Conf"),
+    GetModConfigData("Reverse4Conf"), GetModConfigData("Reverse5Conf"), GetModConfigData("Reverse6Conf"),
+    GetModConfigData("Reverse7Conf") }
+local orders = { GetModConfigData("Order1Conf"), GetModConfigData("Order2Conf"), GetModConfigData("Order3Conf"),
+    GetModConfigData("Order4Conf"), GetModConfigData("Order5Conf"), GetModConfigData("Order6Conf"),
+    GetModConfigData("Order7Conf") }
+
+-- this function checks that the player didn't use duplicate entries for the custom sorting
+
+local checkduplicate = function()
+    print("checkingforduplicates")
+    local cache = {}
+    for k, v in pairs(places) do
+        if(cache[v]) then
+            sort_custom = false
+            --error("Duplicate Entries found in Placements for Custom Sorting")
+            print("ERROR Duplicate Entries found in Placements for Custom Sorting")
+            return 1
+        end
+        cache[v] = true
+    end
+    print("noduplicates")
+    return 5
+end
+
+-- check no duplicate value or cancel custom sorting silently (for now)
+if sort_method == 5 then sort_method = checkduplicate() end
+
 
 -- Combines 2 stacks of the same item
 -- returns false if the 2nd item disappears
-combine_stacks = function(item1, item2)
+local combine_stacks = function(item1, item2)
     if not item1.components.stackable then return end
     local size1 = item1.components.stackable.stacksize
     local size2 = item2.components.stackable.stacksize
@@ -52,7 +86,7 @@ combine_stacks = function(item1, item2)
     return false
 end
 
-average = function(value1, amount1, value2, amount2)
+local average = function(value1, amount1, value2, amount2)
     local total1 = value1*amount1
     local total2 = value2*amount2
     local total = total1 + total2
@@ -61,7 +95,7 @@ end
 
 
 -- Requires either the backpack or the inventory to have an empty slot
-place_item_at_end = function(item)
+local place_item_at_end = function(item)
 	local player = GLOBAL.GetPlayer()
 	local backpack = player.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.PACK) or player.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BACK) or player.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BODY)
 	if not sort_backpack then backpack = nil end
@@ -92,7 +126,7 @@ place_item_at_end = function(item)
 	end
 end
 
-place_item_at_end_no_backpack = function(item)
+local place_item_at_end_no_backpack = function(item)
 	local player = GLOBAL.GetPlayer()
 	local MAXSLOTS = player.components.inventory.maxslots
     local backpack = nil
@@ -107,7 +141,7 @@ place_item_at_end_no_backpack = function(item)
 end
 
 -- insert item at first free index
-place_item_at_start = function(item)
+local place_item_at_start = function(item)
     local player = GLOBAL.GetPlayer()
 	local backpack = player.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.PACK) or player.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BACK) or player.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BODY)
 	if not sort_backpack then backpack = nil end
@@ -136,7 +170,7 @@ place_item_at_start = function(item)
 end
 
 -- Reverse the order of a table
-reverse_table = function(t)
+local reverse_table = function(t)
 	local new_table = {}
 	local i = #t --length of original table
 	for k,v in ipairs(t) do
@@ -146,7 +180,7 @@ reverse_table = function(t)
 	return(new_table)
 end
 
-quick_stack = function(chest, player_inventory)
+local quick_stack = function(chest, player_inventory)
     for k,v in pairs(chest.slots) do
         if v and v.components and v.components.stackable then
             for k1,v1 in pairs(player_inventory.itemslots) do
@@ -200,7 +234,7 @@ quick_stack = function(chest, player_inventory)
     end
 end   
 
-quick_stack_backpack = function(chest, backpack)
+local quick_stack_backpack = function(chest, backpack)
     for k,v in pairs(chest.slots) do
         if v and v.components and v.components.stackable then
             for k1,v1 in pairs(backpack.slots) do
@@ -277,7 +311,7 @@ local final_sort = function(player,index,object,reverse,mode)
 end
 
 -- Main sort inventory function
-sort_inv = function() 
+local sort_inv = function() 
 	local player = GLOBAL.GetPlayer()
 	local backpack = player.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.PACK) or player.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BACK) or player.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BODY)
 	if not sort_backpack then backpack = nil end
@@ -296,9 +330,12 @@ sort_inv = function()
 	local temp_inventory = {}
 	local weapons = {}
 	local tools = {}
+    local books = {} --added books & lights categories
+    local lights ={}
 	local equips = {}
 	local foods = {}
 	local others = {}
+    local recipes = GLOBAL.GetAllRecipes()
     
     -- First see if there's a chest and use quick_stack
     if open_chest then
@@ -320,9 +357,22 @@ sort_inv = function()
 			--backpack exists so start taking items from there
 			item = backpack.components.container.slots[i-MAXSLOTS]
 		end
-		-- equips
 		if item then
-			if (item["components"]["equippable"]) then -- includes weapons, tools, and other equippable items
+            print(item.prefab)
+            if recipes[item.prefab] then
+                print(recipes[item.prefab].tab)
+            end
+            if (item["components"]["book"]) then  --books have component book but it wasn't working (they are not equippable !)
+                    local new_item_index = #books+1
+                    for n = 1, #books do
+                        o = books[n]
+                        if o["prefab"] == item["prefab"] then
+                            new_item_index = n+1 -- stick the identical item in the next spot
+                        end
+                    end
+                    table.insert(books, new_item_index, item)
+            -- equips
+			elseif (item["components"]["equippable"]) then -- includes weapons, tools, and other equippable items
                 if (item["components"]["tool"]) then
 					local new_item_index = #tools+1
                     for n = 1, #tools do
@@ -332,7 +382,16 @@ sort_inv = function()
                         end
                     end
                     table.insert(tools, new_item_index, item)
-				elseif (item["components"]["weapon"]) then
+                elseif (item["Light"] or recipes[item.prefab].tab == RECIPETABS.LIGHT) then --or item.prefab == "torch" or item.prefab == "molehat") then  --lights 
+                    local new_item_index = #lights+1 --item["fire"] doesn't exist until equipped. 
+                    for n = 1, #lights do
+                        o = lights[n]
+                        if o["prefab"] == item["prefab"] then
+                            new_item_index = n+1 -- stick the identical item in the next spot
+                        end
+                    end
+                    table.insert(lights, new_item_index, item)
+				elseif (item["components"]["weapon"]) then 
                     local new_item_index = #weapons+1
                     for n = 1, #weapons do
                         o = weapons[n]
@@ -341,7 +400,7 @@ sort_inv = function()
                         end
                     end
                     table.insert(weapons, new_item_index, item)
-				elseif (item["components"]["equippable"]) then
+				else --if (item["components"]["equippable"]) then --already part of the earlier check !!
 					local new_item_index = #equips+1
                     for n = 1, #equips do
                         o = equips[n]
@@ -403,21 +462,18 @@ sort_inv = function()
 	-- Method 2: Stick others at end, starting in the pack if present
 	if method == 2 then
         index = final_sort(player,index,weapons,false,1) --final_sort 1 is giveitem, 2 is placeatend, 3 is nobackpack, 4 is placeatstart
+        index = final_sort(player,index,lights,false,1)
         index = final_sort(player,index,tools,false,1)
+        index = final_sort(player,index,books,false,1)
         index = final_sort(player,index,equips,false,1)
         index = final_sort(player,index,foods,false,1)
         index = final_sort(player,index,others,true,2) -- true means reverse table
-	-- Method 1: Dump everything in inventory in an intuitive order
-	elseif method == 1 then
-        index = final_sort(player,index,weapons,false,1)
-        index = final_sort(player,index,tools,false,1)
-        index = final_sort(player,index,equips,false,1)
-        index = final_sort(player,index,foods,false,1)
-        index = final_sort(player,index,others,false,1)
 	-- Sort method 3: Place all food into backpack if possible. Do food last
 	elseif method == 3 then
         index = final_sort(player,index,weapons,false,1)
+        index = final_sort(player,index,lights,false,1)
         index = final_sort(player,index,tools,false,1)
+        index = final_sort(player,index,books,false,1)
         index = final_sort(player,index,equips,false,1)
         index = final_sort(player,index,others,false,1)
         index = final_sort(player,index,foods,true,2)
@@ -425,14 +481,39 @@ sort_inv = function()
         -- others, food
     elseif method == 4 then
         index = final_sort(player,index,weapons,true,3)
+        index = final_sort(player,index,lights,true,3)
         index = final_sort(player,index,tools,true,3)
+        index = final_sort(player,index,books,true,3)
         index = final_sort(player,index,equips,true,3)
         index = final_sort(player,index,others,false,4)
         index = final_sort(player,index,foods,false,4)
+        --custom sorting options
+    elseif method == 5 then
+        for i,v in ipairs(places) do --for i=1,#places do
+            if v == "w" then v = weapons
+            elseif v == "t" then v = tools
+            elseif v == "l" then v = lights
+            elseif v == "b" then v = books
+            elseif v == "e" then v = equips
+            elseif v == "f" then v = foods
+            elseif v == "o" then v = others
+            end
+            index = final_sort(player,index,v,reverses[i],orders[i])
+        end
+
+        -- Method 1: Dump everything in inventory in an intuitive order
+    elseif method == 1 then
+        index = final_sort(player,index,weapons,false,1)
+        index = final_sort(player,index,lights,false,1)
+        index = final_sort(player,index,tools,false,1)
+        index = final_sort(player,index,books,false,1)
+        index = final_sort(player,index,equips,false,1)
+        index = final_sort(player,index,foods,false,1)
+        index = final_sort(player,index,others,false,1)
 	end
 end
 
-toggle_method = function()
+local toggle_method = function()
     if sort_method == 1 then
         sort_method = 2
         print("Sorting method 2")
@@ -442,13 +523,16 @@ toggle_method = function()
     elseif sort_method == 3 then
         sort_method = 4
         print("Sorting method 4")
+    elseif sort_method == 4 and sort_custom  then
+        sort_method = checkduplicate()
+        print("Sorting method Custom")
     else
         sort_method = 1
         print("Sorting method 1")
     end
 end
 
-toggle_hold = function()
+local toggle_hold = function()
     if lowest_sort_index == 1 then
         lowest_sort_index = 2
         print("Left-most slot shall remain unsorted")
