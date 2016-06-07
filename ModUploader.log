@@ -1,0 +1,299 @@
+02:24:24: Logging to [C:\Users\Brody\AppData\Local\Don't Starve Mod Uploader\ModUploader.log]
+02:24:24: UploaderApp::OnInit()
+02:24:24: EnumerateUserCloudFiles
+02:24:24:      0. mod_publish_data_file.zip (14740 bytes)
+02:24:24:      1. mod_publish_preview.jpg (55532 bytes)
+02:24:24: RefreshPublishedModInfo
+02:24:24: EnumerateUserPublishedFiles(0)
+02:24:24: Progress: Updating Mod List...
+02:24:24: OnEnumerateUserPublishedFiles 
+02:24:24:    EResult 1, results 2/2
+02:24:24:    Complete
+02:24:24: GetPublishedFileDetails(0)
+02:24:24: Progress: Getting mod details...
+02:24:25: OnPublishedFileDetailsResult 
+02:24:25:    EResult 1, 245827115
+02:24:25:    0x0003C05A, 0x00035A5C, [Sort Inventory], [-Should work with SW now if you unsub, load the map ingame (or just delete the mod from the mods folder), then resub and reload it. Let me know if there are any bugs or issues I haven't found.
+
+Sorts inventory by weapons, equipment, food, etc when you press z. 
+Ctrl+z changes the sorting method (prints state to console). 
+Shift+z toggles whether the first 1-2 slots are sorted.
+Combines adjacents stacks if not full.
+Fills up stacks in chests that aren't full if you have a stack of the same item in your inventory/backback.
+Press p to toggle whether the backpack gets sorted (prints state to console).
+
+If you have any suggestions for future updates, sorting methods, or bug reports, let me know in the discussions or comments.
+
+
+Current possible bugs:
+-Alt-tabbing disables the keybinding and stops it from working. Just press Alt again to fix.
+-Disappearing items on sort spam. Never happened to me so I can't really "fix" it but try not to hold down the sort key just to be safe.
+-Lots of reports that it doesn't work with SW. It works fine for me with SW on Windows 10. If anyone has any detailed bug reports or something that might help fix it let me know. If not, try unsubscribing then resubscribing so it redownloads the mod.
+
+Fixed bugs:
+-Modicon problems
+-Duplicates items and dumps them at 0,0,0 on map.], 0x058d49268b9aa8b8, 0x0841164ee3044012, 76561198071954371, 0x533F8856, 0x566A55BC, 0, 0, [utility,version:1.21], 0, [mod_publish_data_file.zip], 13866, 55532, [], 0
+02:24:25: GetPublishedFileDetails(1)
+02:24:25: Progress: Getting mod details...
+02:24:25: OnPublishedFileDetailsResult 
+02:24:25:    EResult 1, 246552610
+02:24:25:    0x0003C05A, 0x00035A5C, [Sort Inventory Test files], [Hidden test sort_inventory. Just for me!
+v1.1 with sort_method 4
+v1.2 with quick_stack, combine stacks, adjacent tools, proper weapon sorting], 0x03b9577c00516a74, 0x0841164ee3044012, 76561198071954371, 0x5341ADEA, 0x574E200B, 1, 0, [Reign of Giants Compatible,Shipwrecked Compatible,version:1.3], 0, [mod_publish_data_file.zip], 14740, 55532, [], 0
+02:24:25: EndProgress ok: Mod listing complete.
+02:24:25: MainFrame::OnRefreshComplete ok: Mod listing complete.
+02:24:31: GetLuaString: [version_compatible] is not a global lua string!
+02:24:31: GetLuaBool: [client_only_mod] is not a global lua boolean!
+02:24:31: GetLuaBool: [all_clients_require_mod] is not a global lua boolean!
+02:24:31: Progress: Updating...
+02:24:31: BeginUpdating()
+02:24:31: BeginUpdating 000000000ea7062b [Sort Inventory]
+02:24:31: Setting 4 tags...
+02:24:31:    reign of giants compatible
+02:24:31:    shipwrecked compatible
+02:24:31:    utility
+02:24:31:    version:1.3
+02:24:31: ShareDataFile [mod_publish_data_file.zip] ...
+02:24:31: GenerateModPackage: [C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\]
+02:24:31: Progress: Generating mod data file...
+02:24:31: CollectFileNames [C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\] []
+02:24:31:    [modicon.tex]
+02:24:31:    [modicon.xml]
+02:24:31:    [modinfo.lua]
+02:24:31:    [modmain.lua]
+02:24:31:    [README.md]
+02:24:31: zipOpen(C:\Users\Brody\AppData\Local\Temp\modD4AD.tmp) ok
+02:24:31: zipOpenNewFileInZip(modicon.tex) ok
+02:24:31: fopen(C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\modicon.tex) ok: 0
+02:24:31: zipWriteInFileInZip ok
+02:24:31: zipOpenNewFileInZip(modicon.xml) ok
+02:24:31: fopen(C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\modicon.xml) ok: 0
+02:24:31: zipWriteInFileInZip ok
+02:24:31: zipOpenNewFileInZip(modinfo.lua) ok
+02:24:31: fopen(C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\modinfo.lua) ok: 0
+02:24:31: zipWriteInFileInZip ok
+02:24:31: zipOpenNewFileInZip(modmain.lua) ok
+02:24:31: fopen(C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\modmain.lua) ok: 0
+02:24:31: zipWriteInFileInZip ok
+02:24:31: zipOpenNewFileInZip(README.md) ok
+02:24:31: fopen(C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\README.md) ok: 0
+02:24:31: zipWriteInFileInZip ok
+02:24:31: Progress: Writing mod data file...
+02:24:31: WriteFileToCloud() Writing [C:\Users\Brody\AppData\Local\Temp\modD4AD.tmp] to [mod_publish_data_file.zip]
+02:24:31: Steam file exists.
+02:24:31: Steam FileWrite ok.
+02:24:31: Start FileShare [mod_publish_data_file.zip] ...
+02:24:31: Progress: Uploading mod data file...
+02:24:31: OnShareModFileResult 
+02:24:31:    EResult 9, ffffffffffffffff
+02:24:31: EndProgress FAILED: Failed sharing mod data file.
+02:24:31: MainFrame::OnUpdateComplete FAILED: Failed sharing mod data file.
+02:24:37: RefreshPublishedModInfo
+02:24:37: EnumerateUserPublishedFiles(0)
+02:24:37: Progress: Updating Mod List...
+02:24:37: OnEnumerateUserPublishedFiles 
+02:24:37:    EResult 1, results 2/2
+02:24:37:    Complete
+02:24:37: GetPublishedFileDetails(0)
+02:24:37: Progress: Getting mod details...
+02:24:38: OnPublishedFileDetailsResult 
+02:24:38:    EResult 1, 245827115
+02:24:38:    0x0003C05A, 0x00035A5C, [Sort Inventory], [-Should work with SW now if you unsub, load the map ingame (or just delete the mod from the mods folder), then resub and reload it. Let me know if there are any bugs or issues I haven't found.
+
+Sorts inventory by weapons, equipment, food, etc when you press z. 
+Ctrl+z changes the sorting method (prints state to console). 
+Shift+z toggles whether the first 1-2 slots are sorted.
+Combines adjacents stacks if not full.
+Fills up stacks in chests that aren't full if you have a stack of the same item in your inventory/backback.
+Press p to toggle whether the backpack gets sorted (prints state to console).
+
+If you have any suggestions for future updates, sorting methods, or bug reports, let me know in the discussions or comments.
+
+
+Current possible bugs:
+-Alt-tabbing disables the keybinding and stops it from working. Just press Alt again to fix.
+-Disappearing items on sort spam. Never happened to me so I can't really "fix" it but try not to hold down the sort key just to be safe.
+-Lots of reports that it doesn't work with SW. It works fine for me with SW on Windows 10. If anyone has any detailed bug reports or something that might help fix it let me know. If not, try unsubscribing then resubscribing so it redownloads the mod.
+
+Fixed bugs:
+-Modicon problems
+-Duplicates items and dumps them at 0,0,0 on map.], 0x058d49268b9aa8b8, 0x0841164ee3044012, 76561198071954371, 0x533F8856, 0x566A55BC, 0, 0, [utility,version:1.21], 0, [mod_publish_data_file.zip], 13866, 55532, [], 0
+02:24:38: GetPublishedFileDetails(1)
+02:24:38: Progress: Getting mod details...
+02:24:38: OnPublishedFileDetailsResult 
+02:24:38:    EResult 1, 246552610
+02:24:38:    0x0003C05A, 0x00035A5C, [Sort Inventory Test files], [Hidden test sort_inventory. Just for me!
+v1.1 with sort_method 4
+v1.2 with quick_stack, combine stacks, adjacent tools, proper weapon sorting], 0x03b9577c00516a74, 0x0841164ee3044012, 76561198071954371, 0x5341ADEA, 0x574E200B, 1, 0, [Reign of Giants Compatible,Shipwrecked Compatible,version:1.3], 0, [mod_publish_data_file.zip], 14740, 55532, [], 0
+02:24:38: EndProgress ok: Mod listing complete.
+02:24:38: MainFrame::OnRefreshComplete ok: Mod listing complete.
+02:26:11: GetLuaString: [version_compatible] is not a global lua string!
+02:26:11: GetLuaBool: [client_only_mod] is not a global lua boolean!
+02:26:11: GetLuaBool: [all_clients_require_mod] is not a global lua boolean!
+02:26:11: Progress: Updating...
+02:26:11: BeginUpdating()
+02:26:11: BeginUpdating 000000000ea7062b [Sort Inventory]
+02:26:11: Setting 4 tags...
+02:26:11:    reign of giants compatible
+02:26:11:    shipwrecked compatible
+02:26:11:    utility
+02:26:11:    version:1.3
+02:26:11: ShareDataFile [mod_publish_data_file.zip] ...
+02:26:11: GenerateModPackage: [C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\]
+02:26:11: Progress: Generating mod data file...
+02:26:11: CollectFileNames [C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\] []
+02:26:11:    [modicon.tex]
+02:26:11:    [modicon.xml]
+02:26:11:    [modinfo.lua]
+02:26:11:    [modmain.lua]
+02:26:11:    [README.md]
+02:26:11: zipOpen(C:\Users\Brody\AppData\Local\Temp\mod5B6D.tmp) ok
+02:26:11: zipOpenNewFileInZip(modicon.tex) ok
+02:26:11: fopen(C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\modicon.tex) ok: 0
+02:26:11: zipWriteInFileInZip ok
+02:26:11: zipOpenNewFileInZip(modicon.xml) ok
+02:26:11: fopen(C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\modicon.xml) ok: 0
+02:26:11: zipWriteInFileInZip ok
+02:26:11: zipOpenNewFileInZip(modinfo.lua) ok
+02:26:11: fopen(C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\modinfo.lua) ok: 0
+02:26:11: zipWriteInFileInZip ok
+02:26:11: zipOpenNewFileInZip(modmain.lua) ok
+02:26:11: fopen(C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\modmain.lua) ok: 0
+02:26:11: zipWriteInFileInZip ok
+02:26:11: zipOpenNewFileInZip(README.md) ok
+02:26:11: fopen(C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\README.md) ok: 0
+02:26:11: zipWriteInFileInZip ok
+02:26:11: Progress: Writing mod data file...
+02:26:11: WriteFileToCloud() Writing [C:\Users\Brody\AppData\Local\Temp\mod5B6D.tmp] to [mod_publish_data_file.zip]
+02:26:11: Steam file exists.
+02:26:11: Steam FileWrite ok.
+02:26:11: Start FileShare [mod_publish_data_file.zip] ...
+02:26:11: Progress: Uploading mod data file...
+02:26:11: OnShareModFileResult 
+02:26:11:    EResult 9, ffffffffffffffff
+02:26:11: EndProgress FAILED: Failed sharing mod data file.
+02:26:11: MainFrame::OnUpdateComplete FAILED: Failed sharing mod data file.
+02:26:16: RefreshPublishedModInfo
+02:26:16: EnumerateUserPublishedFiles(0)
+02:26:16: Progress: Updating Mod List...
+02:26:16: OnEnumerateUserPublishedFiles 
+02:26:16:    EResult 1, results 2/2
+02:26:16:    Complete
+02:26:16: GetPublishedFileDetails(0)
+02:26:16: Progress: Getting mod details...
+02:26:16: OnPublishedFileDetailsResult 
+02:26:16:    EResult 1, 245827115
+02:26:16:    0x0003C05A, 0x00035A5C, [Sort Inventory], [-Should work with SW now if you unsub, load the map ingame (or just delete the mod from the mods folder), then resub and reload it. Let me know if there are any bugs or issues I haven't found.
+
+Sorts inventory by weapons, equipment, food, etc when you press z. 
+Ctrl+z changes the sorting method (prints state to console). 
+Shift+z toggles whether the first 1-2 slots are sorted.
+Combines adjacents stacks if not full.
+Fills up stacks in chests that aren't full if you have a stack of the same item in your inventory/backback.
+Press p to toggle whether the backpack gets sorted (prints state to console).
+
+If you have any suggestions for future updates, sorting methods, or bug reports, let me know in the discussions or comments.
+
+
+Current possible bugs:
+-Alt-tabbing disables the keybinding and stops it from working. Just press Alt again to fix.
+-Disappearing items on sort spam. Never happened to me so I can't really "fix" it but try not to hold down the sort key just to be safe.
+-Lots of reports that it doesn't work with SW. It works fine for me with SW on Windows 10. If anyone has any detailed bug reports or something that might help fix it let me know. If not, try unsubscribing then resubscribing so it redownloads the mod.
+
+Fixed bugs:
+-Modicon problems
+-Duplicates items and dumps them at 0,0,0 on map.], 0x058d49268b9aa8b8, 0x0841164ee3044012, 76561198071954371, 0x533F8856, 0x566A55BC, 0, 0, [utility,version:1.21], 0, [mod_publish_data_file.zip], 13866, 55532, [], 0
+02:26:16: GetPublishedFileDetails(1)
+02:26:16: Progress: Getting mod details...
+02:26:16: OnPublishedFileDetailsResult 
+02:26:16:    EResult 1, 246552610
+02:26:16:    0x0003C05A, 0x00035A5C, [Sort Inventory Test files], [Hidden test sort_inventory. Just for me!
+v1.1 with sort_method 4
+v1.2 with quick_stack, combine stacks, adjacent tools, proper weapon sorting], 0x03b9577c00516a74, 0x0841164ee3044012, 76561198071954371, 0x5341ADEA, 0x574E200B, 1, 0, [Reign of Giants Compatible,Shipwrecked Compatible,version:1.3], 0, [mod_publish_data_file.zip], 14740, 55532, [], 0
+02:26:16: EndProgress ok: Mod listing complete.
+02:26:16: MainFrame::OnRefreshComplete ok: Mod listing complete.
+02:27:55: GetLuaString: [version_compatible] is not a global lua string!
+02:27:55: GetLuaBool: [client_only_mod] is not a global lua boolean!
+02:27:55: GetLuaBool: [all_clients_require_mod] is not a global lua boolean!
+02:27:55: Progress: Updating...
+02:27:55: BeginUpdating()
+02:27:55: BeginUpdating 000000000ea7062b [Sort Inventory]
+02:27:55: Setting 4 tags...
+02:27:55:    reign of giants compatible
+02:27:55:    shipwrecked compatible
+02:27:55:    utility
+02:27:55:    version:1.3
+02:27:55: ShareDataFile [mod_publish_data_file.zip] ...
+02:27:55: GenerateModPackage: [C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\]
+02:27:55: Progress: Generating mod data file...
+02:27:55: CollectFileNames [C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\] []
+02:27:55:    [modicon.tex]
+02:27:55:    [modicon.xml]
+02:27:55:    [modinfo.lua]
+02:27:55:    [modmain.lua]
+02:27:55:    [README.md]
+02:27:55: zipOpen(C:\Users\Brody\AppData\Local\Temp\modF354.tmp) ok
+02:27:55: zipOpenNewFileInZip(modicon.tex) ok
+02:27:55: fopen(C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\modicon.tex) ok: 0
+02:27:55: zipWriteInFileInZip ok
+02:27:55: zipOpenNewFileInZip(modicon.xml) ok
+02:27:55: fopen(C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\modicon.xml) ok: 0
+02:27:55: zipWriteInFileInZip ok
+02:27:55: zipOpenNewFileInZip(modinfo.lua) ok
+02:27:55: fopen(C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\modinfo.lua) ok: 0
+02:27:55: zipWriteInFileInZip ok
+02:27:55: zipOpenNewFileInZip(modmain.lua) ok
+02:27:55: fopen(C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\modmain.lua) ok: 0
+02:27:55: zipWriteInFileInZip ok
+02:27:55: zipOpenNewFileInZip(README.md) ok
+02:27:55: fopen(C:\Users\Brody\Dropbox\dont_starve_mods\DS_SortInventory\README.md) ok: 0
+02:27:55: zipWriteInFileInZip ok
+02:27:55: Progress: Writing mod data file...
+02:27:55: WriteFileToCloud() Writing [C:\Users\Brody\AppData\Local\Temp\modF354.tmp] to [mod_publish_data_file.zip]
+02:27:55: Steam file exists.
+02:27:55: Steam FileWrite ok.
+02:27:55: Start FileShare [mod_publish_data_file.zip] ...
+02:27:55: Progress: Uploading mod data file...
+02:27:56: OnShareModFileResult 
+02:27:56:    EResult 9, ffffffffffffffff
+02:27:56: EndProgress FAILED: Failed sharing mod data file.
+02:27:56: MainFrame::OnUpdateComplete FAILED: Failed sharing mod data file.
+02:28:00: RefreshPublishedModInfo
+02:28:00: EnumerateUserPublishedFiles(0)
+02:28:00: Progress: Updating Mod List...
+02:28:01: OnEnumerateUserPublishedFiles 
+02:28:01:    EResult 1, results 2/2
+02:28:01:    Complete
+02:28:01: GetPublishedFileDetails(0)
+02:28:01: Progress: Getting mod details...
+02:28:01: OnPublishedFileDetailsResult 
+02:28:01:    EResult 1, 245827115
+02:28:01:    0x0003C05A, 0x00035A5C, [Sort Inventory], [-Should work with SW now if you unsub, load the map ingame (or just delete the mod from the mods folder), then resub and reload it. Let me know if there are any bugs or issues I haven't found.
+
+Sorts inventory by weapons, equipment, food, etc when you press z. 
+Ctrl+z changes the sorting method (prints state to console). 
+Shift+z toggles whether the first 1-2 slots are sorted.
+Combines adjacents stacks if not full.
+Fills up stacks in chests that aren't full if you have a stack of the same item in your inventory/backback.
+Press p to toggle whether the backpack gets sorted (prints state to console).
+
+If you have any suggestions for future updates, sorting methods, or bug reports, let me know in the discussions or comments.
+
+
+Current possible bugs:
+-Alt-tabbing disables the keybinding and stops it from working. Just press Alt again to fix.
+-Disappearing items on sort spam. Never happened to me so I can't really "fix" it but try not to hold down the sort key just to be safe.
+-Lots of reports that it doesn't work with SW. It works fine for me with SW on Windows 10. If anyone has any detailed bug reports or something that might help fix it let me know. If not, try unsubscribing then resubscribing so it redownloads the mod.
+
+Fixed bugs:
+-Modicon problems
+-Duplicates items and dumps them at 0,0,0 on map.], 0x058d49268b9aa8b8, 0x0841164ee3044012, 76561198071954371, 0x533F8856, 0x566A55BC, 0, 0, [utility,version:1.21], 0, [mod_publish_data_file.zip], 13866, 55532, [], 0
+02:28:01: GetPublishedFileDetails(1)
+02:28:01: Progress: Getting mod details...
+02:28:01: OnPublishedFileDetailsResult 
+02:28:01:    EResult 1, 246552610
+02:28:01:    0x0003C05A, 0x00035A5C, [Sort Inventory Test files], [Hidden test sort_inventory. Just for me!
+v1.1 with sort_method 4
+v1.2 with quick_stack, combine stacks, adjacent tools, proper weapon sorting], 0x03b9577c00516a74, 0x0841164ee3044012, 76561198071954371, 0x5341ADEA, 0x574E200B, 1, 0, [Reign of Giants Compatible,Shipwrecked Compatible,version:1.3], 0, [mod_publish_data_file.zip], 14740, 55532, [], 0
+02:28:01: EndProgress ok: Mod listing complete.
+02:28:01: MainFrame::OnRefreshComplete ok: Mod listing complete.
