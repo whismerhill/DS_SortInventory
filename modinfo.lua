@@ -1,7 +1,7 @@
-name = "Sort Inventory by me"
+name = "Sort Inventory"
 description = "Sorts inventory by weapons, equipment, food, etc when you press z. Ctrl+z changes the sorting method. Shift+z toggles whether the first 1-2 slots are sorted. (See Workshop page for v1.2 updates!)"
 author = "Brody & Whismerhill"
-version = "1.3a"
+version = "1.4"
 forumthread = ""
 api_version = 6
 icon_atlas = "modicon.xml"
