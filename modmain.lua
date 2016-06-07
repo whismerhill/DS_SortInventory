@@ -254,6 +254,28 @@ quick_stack_backpack = function(chest, backpack)
     end
 end
 
+-- New function by whis for avoiding repeating the same stuff over & over
+local final_sort = function(player,index,object,reverse,mode)
+    if object then
+        if reverse then
+            reverse_table(object)
+        end
+        for h, x in pairs(object) do
+            if mode == 1 then
+                player.components.inventory:GiveItem(x, index, nil)
+            elseif mode == 2 then
+                place_item_at_end(x)
+            elseif mode == 3 then
+                place_item_at_end_no_backpack(x)
+            elseif mode == 4 then
+                place_item_at_start(x)
+            end
+            index = index+1
+        end
+        return index
+    end
+end
+
 -- Main sort inventory function
 sort_inv = function() 
 	local player = GLOBAL.GetPlayer()
@@ -380,133 +402,33 @@ sort_inv = function()
 	local index = MIN
 	-- Method 2: Stick others at end, starting in the pack if present
 	if method == 2 then
-		if weapons then
-			for h, x in pairs(weapons) do
-				player.components.inventory:GiveItem(x, index, nil)
-				index = index+1
-			end
-		end
-		if tools then
-			for h, y in pairs(tools) do
-				player.components.inventory:GiveItem(y, index, nil)
-				index = index+1
-			end
-		end
-		if equips then
-			for h, z in pairs(equips) do
-				player.components.inventory:GiveItem(z, index, nil)
-				index = index+1
-			end
-		end
-		if foods then
-			for h, a in pairs(foods) do
-				player.components.inventory:GiveItem(a, index, nil)
-				index = index+1
-			end
-		end
-		if others then
-			others = reverse_table(others) -- reverse the table
-			for h, b in pairs(others) do
-				place_item_at_end(b)
-				index = index+1
-			end
-		end
+        index = final_sort(player,index,weapons,false,1) --final_sort 1 is giveitem, 2 is placeatend, 3 is nobackpack, 4 is placeatstart
+        index = final_sort(player,index,tools,false,1)
+        index = final_sort(player,index,equips,false,1)
+        index = final_sort(player,index,foods,false,1)
+        index = final_sort(player,index,others,true,2) -- true means reverse table
 	-- Method 1: Dump everything in inventory in an intuitive order
 	elseif method == 1 then
-		if weapons then
-			for h, x in pairs(weapons) do
-				player.components.inventory:GiveItem(x, index, nil)
-				index = index+1
-			end
-		end
-		if tools then
-			for h, y in pairs(tools) do
-				player.components.inventory:GiveItem(y, index, nil)
-				index = index+1
-			end
-		end
-		if equips then
-			for h, z in pairs(equips) do
-				player.components.inventory:GiveItem(z, index, nil)
-				index = index+1
-			end
-		end
-		if foods then
-			for h, a in pairs(foods) do
-				player.components.inventory:GiveItem(a, index, nil)
-				index = index+1
-			end
-		end
-		if others then
-			for h, b in pairs(others) do
-				player.components.inventory:GiveItem(b, index, nil)
-				index = index+1
-			end
-		end
+        index = final_sort(player,index,weapons,false,1)
+        index = final_sort(player,index,tools,false,1)
+        index = final_sort(player,index,equips,false,1)
+        index = final_sort(player,index,foods,false,1)
+        index = final_sort(player,index,others,false,1)
 	-- Sort method 3: Place all food into backpack if possible. Do food last
 	elseif method == 3 then
-		if weapons then
-			for h, x in pairs(weapons) do
-				player.components.inventory:GiveItem(x, index, nil)
-				index = index+1
-			end
-		end
-		if tools then
-			for h, y in pairs(tools) do
-				player.components.inventory:GiveItem(y, index, nil)
-				index = index+1
-			end
-		end
-		if equips then
-			for h, z in pairs(equips) do
-				player.components.inventory:GiveItem(z, index, nil)
-				index = index+1
-			end
-		end
-		if others then
-			for h, a in pairs(others) do
-				player.components.inventory:GiveItem(a, index, nil)
-				index = index+1
-			end
-		end
-		if foods then
-			foods = reverse_table(foods) -- reverse the table
-			for h, b in pairs(foods) do
-				place_item_at_end(b)
-				index = index+1
-			end
-		end
+        index = final_sort(player,index,weapons,false,1)
+        index = final_sort(player,index,tools,false,1)
+        index = final_sort(player,index,equips,false,1)
+        index = final_sort(player,index,others,false,1)
+        index = final_sort(player,index,foods,true,2)
     -- keep weapons and tools just left of equipslots, then from left to right:
         -- others, food
     elseif method == 4 then
-		if weapons then
-            weapons = reverse_table(weapons)
-			for h, x in pairs(weapons) do
-				place_item_at_end_no_backpack(x)
-			end
-		end
-		if tools then
-			tools = reverse_table(tools)
-			for h, y in pairs(tools) do
-				place_item_at_end_no_backpack(y)
-			end
-		end
-		if equips then
-			equips = reverse_table(equips)
-			for h, z in pairs(equips) do
-				place_item_at_end_no_backpack(z)
-			end
-		end
-		if others then
-			for h, a in pairs(others) do
-				place_item_at_start(a)
-			end
-		end
-		if foods then
-			for h, b in pairs(foods) do
-				place_item_at_start(b)
-			end
-		end
+        index = final_sort(player,index,weapons,true,3)
+        index = final_sort(player,index,tools,true,3)
+        index = final_sort(player,index,equips,true,3)
+        index = final_sort(player,index,others,false,4)
+        index = final_sort(player,index,foods,false,4)
 	end
 end
 
