@@ -357,7 +357,7 @@ local sort_inv = function()
 			--backpack exists so start taking items from there
 			item = backpack.components.container.slots[i-MAXSLOTS]
 		end
-		if item then
+		if item and item.prefab then
             -- print(item.prefab)
             -- if recipes[item.prefab] then
                 -- print(recipes[item.prefab].tab)
